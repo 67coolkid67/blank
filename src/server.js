@@ -70,10 +70,10 @@ const filteringState = await setupFiltering({ wisp, filtering: config.filtering 
 const blockVerdict = createBlockVerdict({ blocklist: blockedSiteMatchers, policy: filteringState.policy });
 
 if (config.challenge !== false) {
-  console.log(chalk.green("🔒 Password protection is enabled! Listing logins below"));
-  Object.entries(config.users).forEach(([username, password]) => {
-    console.log(chalk.blue(`Username: ${username}, Password: ${password}`));
-  });
+  if (Object.keys(config.users).length === 0) {
+    throw new Error("Set APP_USERNAME and APP_PASSWORD before starting the server.");
+  }
+  console.log(chalk.green("🔒 Password protection is enabled."));
   app.use(basicAuth({ users: config.users, challenge: true }));
 }
 

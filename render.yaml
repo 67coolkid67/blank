@@ -3,3 +3,8 @@ services:
     name: edu
     env: docker
     plan: free
+    envVars:
+      - key: APP_USERNAME
+        sync: false
+      - key: APP_PASSWORD
+        sync: false
